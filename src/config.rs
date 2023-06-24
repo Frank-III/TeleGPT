@@ -52,6 +52,8 @@ impl Deref for SharedConfig {
 /// Top-level config type fot the bot.
 #[derive(Debug, Clone, Deserialize)]
 pub struct Config {
+    #[serde(default = "default_openai_api_base", rename = "openaiAPIBase")]
+    pub openai_api_base: String,
     /// The API key of your OpenAI account.
     /// JSON key: `openaiAPIKey`
     #[serde(rename = "openaiAPIKey")]
@@ -151,6 +153,7 @@ macro_rules! define_defaults {
 }
 
 define_defaults! {
+    openai_api_base: String = "https://api.openai.com/v1".into(),
     openai_api_timeout: u64 = 10,
     stream_throttle_interval: u64 = 500,
     conversation_limit: u64 = 20,
