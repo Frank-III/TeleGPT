@@ -1,4 +1,4 @@
-FROM rust:latest AS BUILD
+FROM rust:bookworm AS BUILD
 WORKDIR /usr/src/telegpt
 
 COPY src/ src/
@@ -16,7 +16,7 @@ COPY boot.sh .
 #   libsqlite3.so.0: cannot open shared object file
 #   failed:../ssl/statem/statem_clnt.c:1914
 RUN apt update -y && \ 
-    apt install -y --no-install-recommends sqlite3 ca-certificates openssl && \
+    apt install -y --no-install-recommends sqlite3 ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 CMD ["/telegpt/boot.sh"]
